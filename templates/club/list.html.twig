@@ -1,0 +1,23 @@
+
+
+<h1> La liste des formationns </h1>
+ {%for i in tableau_formations%}
+ {%if i.Description == "formation theorique"%}
+<table border="1">
+<tr><th>Ref</th> <th>Titre</th> <th>Description</th> <th>Date_debut</th> <th>nombre de participants</th></tr>
+
+ <tr>
+ <td> {{i.ref}}</td>
+ <td>{{i.Titre|upper}}</td>
+ <td>{{i.Description}}</td>
+ <td>{{i.date_debut}}</td>
+ <td>{{i.nb_participants}}</td>
+ </tr>
+
+
+</table>
+ {%endif%}
+ {%endfor%}
+
+
+ <h2> Le nombres de formationns : {{tableau_formations|length}}</h2>
