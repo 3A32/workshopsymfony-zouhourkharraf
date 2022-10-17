@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\Id] // désigne que l'attribut qui suit ces trois lignes est la clé primaire de l'entité
+    #[ORM\GeneratedValue] //désigne que l'attribut est autoincrémenté (pour annuler cette opération on doit juste supprimer cette ligne)
     #[ORM\Column]
     private ?int $id = null;
 
@@ -66,7 +66,6 @@ class Product
 
         return $this;
     }
-
     public function getType(): ?string
     {
         return $this->type;

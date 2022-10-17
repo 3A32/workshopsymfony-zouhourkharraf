@@ -1,23 +1,115 @@
+<h2>classe :
+	{{classe}}
+	salle :
+	{{salle}}</h2>
+<h1>
+	La liste des formations
+</h1>
 
-
-<h1> La liste des formationns </h1>
- {%for i in tableau_formations%}
- {%if i.Description == "formation theorique"%}
 <table border="1">
-<tr><th>Ref</th> <th>Titre</th> <th>Description</th> <th>Date_debut</th> <th>nombre de participants</th></tr>
+	<tr>
+		<th>Ref</th>
+		<th>Titre</th>
+		<th>Description</th>
+		<th>Date_debut</th>
+		<th>Date_fin</th>
+		<th>nombre de participants</th>
+		<th>Action</th>
+	</tr>
 
- <tr>
- <td> {{i.ref}}</td>
- <td>{{i.Titre|upper}}</td>
- <td>{{i.Description}}</td>
- <td>{{i.date_debut}}</td>
- <td>{{i.nb_participants}}</td>
- </tr>
+	{% for i in tableau_formations %}
+		{% if tableau_formations is empty %}
+			{{"Pas de formations !!!!!!!"}}
+		{% elseif tableau_formations is null %}
+			{{"le tableau n'est pas défini !!!!!!!"}}
+		{% else %}
+			<tr>
+				<td>
+					{{i.ref}}</td>
+				<td>{{i.Titre|upper}}</td>
+				<td>{{i.Description}}</td>
+				<td>{{i.date_debut}}</td>
+				<td>{{i.date_fin}}</td>
+				<td>{{i.nb_participants}}</td>
+				{% if i.nb_participants==0 %}
+					{% set a=i.Titre %}
+					<td>
+						<a href="{{ path('get_name',{'nom':a}) }}">
+							<input type="button" value="participer">
+						</a>
+					</td>
+				{% endif %}
 
+			</tr>
 
+		{% endif %}
+	{% endfor %}
 </table>
- {%endif%}
- {%endfor%}
 
 
- <h2> Le nombres de formationns : {{tableau_formations|length}}</h2>
+<h2>
+	Le nombres de formationns :
+	{{tableau_formations|length}}</h2>
+
+<br>
+<h1>
+	les formations théoriques
+</h1>
+<table border="1">
+	<tr>
+		<th>Ref</th>
+		<th>Titre</th>
+		<th>Description</th>
+		<th>Date_debut</th>
+		<th>Date_fin</th>
+		<th>nombre de participants</th>
+	</tr>
+
+	{%for i in tableau_formations%}
+		{% if i.Description=="formation theorique"%}
+			<tr>
+				<td>
+					{{i.ref}}</td>
+				<td>{{i.Titre|upper}}</td>
+				<td>{{i.Description}}</td>
+				<td>{{i.date_debut}}</td>
+				<td>{{i.date_fin}}</td>
+				<td>{{i.nb_participants}}</td>
+			</tr>
+		{% endif %}
+	{% endfor %}
+</table>
+
+<h1>La formation qui a le plus grand nombre de participants:<h2>
+		<table border="1">
+			<tr>
+				<th>Ref</th>
+				<th>Titre</th>
+				<th>Description</th>
+				<th>Date_debut</th>
+				<th>Date_fin</th>
+				<th>nombre de participants</th>
+			</tr>
+			{% set NB_PART=[tableau_formations['0'].nb_participants,tableau_formations['1'].nb_participants,tableau_formations['2'].nb_participants] %}
+			{% set max=max(NB_PART) %}
+
+			{%for i in tableau_formations %}
+				{% if i.nb_participants==max %}
+					<tr>
+						<td>
+							{{i.ref}}</td>
+						<td>{{i.Titre|upper}}</td>
+						<td>{{i.Description}}</td>
+						<td>{{i.date_debut}}</td>
+						<td>{{i.date_fin}}</td>
+						<td>{{i.nb_participants}}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+
+		</table><br>
+
+		<h1>
+			Le nombre total de participants dans toutes les formations :
+			{{NB_PART['0']+NB_PART['1']+NB_PART['2']}}
+		</h1>
