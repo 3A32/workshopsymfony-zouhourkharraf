@@ -1,0 +1,23 @@
+<h1>La liste des évènements</h1>
+<table border="1">
+	<tr>
+		<th>ID</th>
+		<th>Id category</th>
+		<th>DD</th>
+		<th>DF</th>
+		<th>Action</th>
+
+	</tr>
+	{%for i in list_events %}
+		<tr>
+			<td>
+				{{i.id}}</td>
+			<td>{{i.category}}</td>
+			<td>{{i.date_debut}}</td>
+			<td>{{i.date_fin}}</td>
+
+		</tr>
+
+	{% endfor %}
+
+</table><br>
